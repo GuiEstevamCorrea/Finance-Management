@@ -9,25 +9,26 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name ="TB_USERS")
+@Table(name ="TB_TICKETS")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "userId")
-public class UserModel implements Serializable {
+@EqualsAndHashCode(of = "ticketId")
+public class TicketModel implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID userId;
-    private String firstName;
-    private String lastName;
-    private String cpf;
-    private LocalDate birthDate;
-    private Long password;
+    private UUID ticketId;
+    private Long barCode;
+    private Integer price;
+    private LocalDate dueDate;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserModel userId;
 
 }

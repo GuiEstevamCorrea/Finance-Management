@@ -18,7 +18,7 @@ public class UserService {
     UserRepository userRepository;
 
     @Transactional
-    public UserModel save(@NotNull UserModel userModel) {
+    public UserModel saveUser(@NotNull UserModel userModel) {
         if (userRepository.existsByCpf(userModel.getCpf())) {
             throw new RuntimeException("There is already a registered user with the same CPF");
         }
@@ -30,12 +30,12 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public Optional<UserModel> findById(UUID userId){
+    public Optional<UserModel> findByUserId(UUID userId){
         return userRepository.findById(userId);
     }
 
     @Transactional
-    public void delete(UserModel userModel) {
+    public void deleteUser(UserModel userModel) {
         userRepository.delete(userModel);
     }
 }

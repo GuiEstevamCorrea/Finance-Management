@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<UserModel> saveUser(@RequestBody @Valid UserDTO userDTO){
         var userModel = new UserModel();
         BeanUtils.copyProperties(userDTO, userModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userModel));
     }
 
     @GetMapping
@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId") UUID userId){
 
-        Optional<UserModel> userModelOptional = userService.findById(userId);
+        Optional<UserModel> userModelOptional = userService.findByUserId(userId);
 
         if (!userModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not  found!");
@@ -50,12 +50,12 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public ResponseEntity<Object> deleteUser(@PathVariable(value = "userId") UUID userId){
 
-        Optional<UserModel> userModelOptional = userService.findById(userId);
+        Optional<UserModel> userModelOptional = userService.findByUserId(userId);
 
         if (userModelOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not  found!");
         }
-        userService.delete(userModelOptional.get());
+        userService.deleteUser(userModelOptional.get());
         return ResponseEntity.status(HttpStatus.OK).body(userModelOptional.get());
     }
 
