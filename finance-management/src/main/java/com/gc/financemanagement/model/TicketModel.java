@@ -1,5 +1,7 @@
 package com.gc.financemanagement.model;
 
+import com.gc.financemanagement.enums.CardType;
+import com.gc.financemanagement.enums.TicketType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -37,6 +39,11 @@ public class TicketModel implements Serializable {
     @Future(message = "A data de validade deve ser no futuro")
     @Column(name = "due_date")
     private LocalDate dueDate;
+
+    @NotNull(message = "O tipo do boleto não pode ser nulo")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "card_type")
+    private TicketType ticketType;
 
     @NotNull(message = "O usuário não pode ser nulo")
     @ManyToOne
