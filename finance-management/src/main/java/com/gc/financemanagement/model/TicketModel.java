@@ -1,10 +1,7 @@
 package com.gc.financemanagement.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.io.Serial;
@@ -28,9 +25,10 @@ public class TicketModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID ticketId;
 
-    @Size(min = 25, max = 30, message = "O número do cartão deve ter no minimo 25 e no máximo 30 números")
+    @NotEmpty(message = "O código de barras não pode ser nulo ou vazio")
+    @Size(min = 25, max = 30, message = "O número do cartão deve ter no mínimo 25 e no máximo 30 caracteres")
     @Column(name = "bar_Code")
-    private Long barCode;
+    private String barCode;
 
     @NotNull(message = "O preço não pode ser nulo")
     @Min(value = 0, message = "O preço não pode ser menor que 0")
@@ -41,7 +39,7 @@ public class TicketModel implements Serializable {
     private LocalDate dueDate;
 
     @NotNull(message = "O usuário não pode ser nulo")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserModel userId;
 

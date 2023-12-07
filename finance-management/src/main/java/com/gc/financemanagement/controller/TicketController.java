@@ -1,7 +1,9 @@
 package com.gc.financemanagement.controller;
 
+import com.gc.financemanagement.dto.CardDTO;
 import com.gc.financemanagement.dto.TicketDTO;
 import com.gc.financemanagement.dto.UserDTO;
+import com.gc.financemanagement.model.CardModel;
 import com.gc.financemanagement.model.TicketModel;
 import com.gc.financemanagement.model.UserModel;
 import com.gc.financemanagement.service.TicketService;
@@ -24,10 +26,12 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-    @PostMapping
-    public ResponseEntity<TicketModel> saveTicket(@RequestBody @Valid TicketDTO ticketDTO){
+    @PostMapping("/{userId}")
+    public ResponseEntity<TicketModel> saveTicket(@PathVariable(value = "userId") UUID userId,
+                                              @RequestBody @Valid TicketDTO ticketDTO){
         var ticketModel = new TicketModel();
         BeanUtils.copyProperties(ticketDTO, ticketModel);
+        ticketModel.setUserId(new UserModel(userId));
         return ResponseEntity.status(HttpStatus.CREATED).body(ticketService.saveTickets(ticketModel));
     }
 

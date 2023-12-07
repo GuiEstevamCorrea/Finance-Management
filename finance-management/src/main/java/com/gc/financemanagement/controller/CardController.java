@@ -4,6 +4,7 @@ import com.gc.financemanagement.dto.CardDTO;
 import com.gc.financemanagement.dto.TicketDTO;
 import com.gc.financemanagement.model.CardModel;
 import com.gc.financemanagement.model.TicketModel;
+import com.gc.financemanagement.model.UserModel;
 import com.gc.financemanagement.service.CardService;
 import com.gc.financemanagement.service.TicketService;
 import jakarta.validation.Valid;
@@ -24,10 +25,12 @@ public class CardController {
     @Autowired
     CardService cardService;
 
-    @PostMapping
-    public ResponseEntity<CardModel> saveCard(@RequestBody @Valid CardDTO cardDTO){
+    @PostMapping("/{userId}")
+    public ResponseEntity<CardModel> saveCard(@PathVariable(value = "userId") UUID userId,
+                                                     @RequestBody @Valid CardDTO cardDTO){
         var cardModel = new CardModel();
         BeanUtils.copyProperties(cardDTO, cardModel);
+        cardModel.setUserId(new UserModel(userId));
         return ResponseEntity.status(HttpStatus.CREATED).body(cardService.saveCard(cardModel));
     }
 

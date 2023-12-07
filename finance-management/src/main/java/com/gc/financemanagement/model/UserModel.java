@@ -10,6 +10,7 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -53,5 +54,12 @@ public class UserModel implements Serializable {
 
     @NotBlank(message = "A senha não pode estar em branco")
     private String password;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    private List<CardModel> cards;
+
+    public UserModel(UUID userId) {
+        this.userId = userId;
+    }
 }
 

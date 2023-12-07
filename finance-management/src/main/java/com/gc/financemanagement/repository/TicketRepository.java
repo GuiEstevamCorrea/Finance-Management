@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface TicketRepository extends JpaRepository<TicketModel, UUID> {
-    boolean existsByBarCode(Long barCode);
+    boolean existsByBarCode(String barCode);
 }

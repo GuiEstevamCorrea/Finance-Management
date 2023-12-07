@@ -2,10 +2,7 @@ package com.gc.financemanagement.model;
 
 import com.gc.financemanagement.enums.CardType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.io.Serial;
@@ -29,7 +26,7 @@ public class CardModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID cardId;
 
-    @Size(min = 16, max = 16, message = "O número do cartão deve ter exatamente 16 caracteres")
+    @Digits(integer = 16, fraction = 0, message = "O número do cartão deve ter exatamente 16 dígitos")
     @Column(name = "card_number")
     private Long cardNumber;
 
@@ -50,7 +47,7 @@ public class CardModel implements Serializable {
     private Integer price;
 
     @NotNull(message = "O usuário não pode ser nulo")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserModel userId;
 
