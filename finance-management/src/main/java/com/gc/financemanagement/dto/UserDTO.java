@@ -5,5 +5,5 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record UserDTO(@NotBlank  String firstName, @NotBlank String lastName, @NotBlank String cpf, LocalDate birthDate, @NotNull Long password) {
+public record UserDTO(@NotBlank  String firstName, @NotBlank String lastName, @NotBlank String cpf, LocalDate birthDate, @NotBlank String password) {
 }

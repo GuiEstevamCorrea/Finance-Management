@@ -20,6 +20,10 @@ public class UserModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    public UserModel(String userId) {
+        this.userId = UUID.fromString(userId);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
@@ -27,7 +31,7 @@ public class UserModel implements Serializable {
     private String lastName;
     private String cpf;
     private LocalDate birthDate;
-    private Long password;
+    private String password;
 
 
 }
