@@ -33,6 +33,11 @@ public class UserModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
 
+    @NotBlank(message = "O email não pode estar em branco")
+    @Size(max = 255, message = "O email deve ter no máximo 255 caracteres")
+    @Column(name = "email")
+    private String email;
+
     @NotBlank(message = "O primeiro nome não pode estar em branco")
     @Size(max = 255, message = "O primeiro nome deve ter no máximo 255 caracteres")
     @Column(name = "first_name")

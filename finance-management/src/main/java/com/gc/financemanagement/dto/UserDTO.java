@@ -7,5 +7,5 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-public record UserDTO(@NotBlank  String firstName, @NotBlank String lastName, @NotBlank String cpf, LocalDate birthDate, @NotBlank String password, List<CardModel> cards) {
+public record UserDTO(@NotBlank String email, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String cpf, LocalDate birthDate, @NotBlank String password, List<CardModel> cards) {
 }
