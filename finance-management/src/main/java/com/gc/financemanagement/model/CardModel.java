@@ -30,4 +30,8 @@ public class CardModel implements Serializable {
     private CardType cardType;
     private Integer price;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserModel userId;
+
 }
