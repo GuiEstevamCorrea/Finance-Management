@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+
+    <h2>Login</h2>
+
+    <form id="loginForm">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+
+        <input type="submit" value="Entrar" class="button">
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita que o formulário seja enviado da maneira tradicional
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Envia uma solicitação AJAX para verificar as credenciais
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/login', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 201) {
+                        const response = JSON.parse(xhr.responseText);
+                        
+                        if (response.authenticated) {
+                            // Se autenticado, redireciona para a página do dashboard
+                            window.location.href = 'dashboard.html';
+                        } else {
+                            alert('Credenciais inválidas. Tente novamente.');
+                        }
+                    } else {
+                        console.error('Erro ao realizar a solicitação.');
+                    }
+                }
+            };
+
+            // Envia os dados de login como JSON
+            xhr.send(JSON.stringify({ email, password }));
+        });
+    </script>
+
+</body>
+</html>
